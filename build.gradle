@@ -14,16 +14,15 @@ allure {
     version = allureVersion
     autoconfigure = true
     aspectjweaver = true
-    configuration = "testImplementation"
+    configuration = "implementation"
     useJUnit5 {
         version = allureVersion
     }
 }
 
 dependencies {
-    testImplementation(
+    implementation(
             "org.aspectj:aspectjweaver:1.9.6",
-            "io.qameta.allure:allure-selenide:$allureVersion",
             "io.appium:java-client:7.3.0",
             "org.junit.jupiter:junit-jupiter-api:$junitVersion",
             "org.assertj:assertj-core:3.11.1")
