@@ -42,7 +42,7 @@ public class TestBase {
 
     @AfterEach
     public void afterEach() {
-        new AttachmentHelper(driver).screenshotAs("Last screenshot");
+        new AttachmentHelper(driver).screenshotAs("After test screenshot");
         driver.quit();
     }
 }
