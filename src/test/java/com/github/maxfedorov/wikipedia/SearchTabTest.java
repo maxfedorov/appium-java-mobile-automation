@@ -11,9 +11,6 @@ import org.junit.jupiter.api.Test;
 import static io.qameta.allure.Allure.step;
 
 @DisplayName("Start screen")
-
-
-
 public class SearchTabTest extends TestBase {
 
     @Test
