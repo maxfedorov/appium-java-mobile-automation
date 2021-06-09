@@ -1,9 +1,15 @@
 package com.github.maxfedorov.wikipedia;
 
+import Screens.*;
+import io.appium.java_client.MobileElement;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static io.qameta.allure.Allure.step;
 
@@ -15,12 +21,11 @@ public class MoreTabTest extends TestBase {
     @Story("More tab")
     @DisplayName("Open history")
     void OpenHistoryTest() {
-        step("Open More tab", () -> {
-        });
-        step("Tap history", () -> {
-        });
-        step("Check that search tab is open", () -> {
-        });
+        MoreTab moreTab = new TabsBottomPanel(driver).tapMore();
+        moreTab.openHistory();
+        Assertions.assertThat(new SearchTab(driver).isOpen())
+                .as("Search tab should be shown, but it is not")
+                .isTrue();
     }
 
     @Test
@@ -28,16 +33,15 @@ public class MoreTabTest extends TestBase {
     @Story("More tab")
     @DisplayName("Create account with non available user")
     void CreateAccountWithNonAvailableUserTest() {
-        step("Open More tab", () -> {
-        });
-        step("Tap 'Log in / Join Wikipedia'", () -> {
-        });
-        step("Type username 'user'", () -> {
-        });
-        step("Check that Error message is shown", () -> {
-        });
-        step("Check that Next button is disabled", () -> {
-        });
+        MoreTab moreTab = new TabsBottomPanel(driver).tapMore();
+        SignUpPage signUpPage = moreTab.logIn();
+        signUpPage.typeUsername("user");
+        List<String> errors = signUpPage.getErrors();
+        String expectedError = "The user name \"user\" is not available. Please choose a different name.";
+        SoftAssertions softAssertions = new SoftAssertions();
+        softAssertions.assertThat(errors).hasSize(1);
+        softAssertions.assertThat(errors.get(0)).isEqualTo(expectedError);
+        softAssertions.assertAll();
     }
 
     @Test
@@ -45,17 +49,11 @@ public class MoreTabTest extends TestBase {
     @Story("More tab")
     @DisplayName("Add language")
     void AddLanguageTest() {
-        step("Open More tab", () -> {
-        });
-        step("Open Setting", () -> {
-        });
-        step("Open Wikipedia languages", () -> {
-        });
-        step("Tap add language", () -> {
-        });
-        step("Add first language", () -> {
-        });
-        step("Check that there are two languages in the list", () -> {
-        });
+        MoreTab moreTab = new TabsBottomPanel(driver).tapMore();
+        SettingsPage settingsPage = moreTab.settings();
+        settingsPage.wikipediaLanguages();
+        settingsPage.addLanguage();
+        settingsPage.clickLanguage("Deutsch");
+        Assertions.assertThat(settingsPage.getLanguagesList()).hasSize(2);
     }
 }

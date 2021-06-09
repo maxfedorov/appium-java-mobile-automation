@@ -1,5 +1,7 @@
 package com.github.maxfedorov.wikipedia;
 
+import Screens.CommonSteps;
+import Screens.ExploreTab;
 import Screens.SearchTab;
 import Screens.TabsBottomPanel;
 import io.qameta.allure.Feature;
@@ -7,8 +9,6 @@ import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.qameta.allure.Allure.step;
 
 @DisplayName("Start screen")
 public class SearchTabTest extends TestBase {
@@ -18,9 +18,8 @@ public class SearchTabTest extends TestBase {
     @Story("Search tab")
     @DisplayName("Search article")
     void searchTest() {
-        SearchTab searchTab = new TabsBottomPanel(driver)
-                .tapSearch()
-                .search("Appium");
+        SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
+        searchTab.search("Appium");
         Assertions.assertThat(searchTab.searchResults().size()).isGreaterThan(0);
     }
 
@@ -29,14 +28,10 @@ public class SearchTabTest extends TestBase {
     @Story("Search tab")
     @DisplayName("Check that opened article appears in history")
     void historyTest() {
-        step("Open first article in 'Top read card'", () -> {
-        });
-        step("Navigate back", () -> {
-        });
-        step("Open Search tab", () -> {
-        });
-        step("Check that history contains one link", () -> {
-        });
+        new ExploreTab(driver).card("Top read").clickInnerItemByNumber(1);
+        new CommonSteps(driver).back();
+        SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
+        Assertions.assertThat(searchTab.getHistoryItems()).hasSize(1);
     }
 
     @Test
@@ -44,15 +39,11 @@ public class SearchTabTest extends TestBase {
     @Story("Search tab")
     @DisplayName("Clear history")
     void clearHistoryTest() {
-        step("Open first article in 'Top read card'", () -> {
-        });
-        step("Navigate back", () -> {
-        });
-        step("Open Search tab", () -> {
-        });
-        step("Type Delete button and confirm", () -> {
-        });
-        step("Check that history does not contain links", () -> {
-        });
+        new ExploreTab(driver).card("Top read").clickInnerItemByNumber(1);
+        new CommonSteps(driver).back();
+        SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
+        searchTab.clearHistory();
+        searchTab.confirm();
+        Assertions.assertThat(searchTab.getHistoryItems()).hasSize(0);
     }
 }

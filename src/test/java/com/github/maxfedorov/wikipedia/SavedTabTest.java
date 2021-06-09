@@ -1,11 +1,12 @@
 package com.github.maxfedorov.wikipedia;
 
+import Screens.SavedTab;
+import Screens.TabsBottomPanel;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.qameta.allure.Allure.step;
 
 @DisplayName("Start screen")
 public class SavedTabTest extends TestBase {
@@ -15,18 +16,12 @@ public class SavedTabTest extends TestBase {
     @Story("Saved tab")
     @DisplayName("Create list")
     void createListTest() {
-        step("Open Saved tab", () -> {
-        });
-        step("Open more menu", () -> {
-        });
-        step("Tap 'Create new list'", () -> {
-        });
-        step("Type name and description", () -> {
-        });
-        step("Tap OK", () -> {
-        });
-        step("Check that there are two lists on the screen", () -> {
-        });
+        SavedTab savedTab = new TabsBottomPanel(driver).tapSaved();
+        savedTab.createNewList();
+        savedTab.typeName("NewList");
+        savedTab.typeDescription("Test description");
+        savedTab.clickOkInCreateListPopup();
+        Assertions.assertThat(savedTab.getLists()).hasSize(2);
     }
 
     @Test
@@ -34,14 +29,9 @@ public class SavedTabTest extends TestBase {
     @Story("Saved tab")
     @DisplayName("Delete list")
     void deleteListTest() {
-        step("Open Saved tab", () -> {
-        });
-        step("Long tap on '' list", () -> {
-        });
-        step("Tap 'Delete list'", () -> {
-        });
-        step("Check that there are no lists on the screen", () -> {
-        });
+        SavedTab savedTab = new TabsBottomPanel(driver).tapSaved();
+        savedTab.deleteList("Saved");
+        Assertions.assertThat(savedTab.getLists()).hasSize(0);
     }
 
     @Test
@@ -49,17 +39,10 @@ public class SavedTabTest extends TestBase {
     @Story("Saved tab")
     @DisplayName("Edit list")
     void editListTest() {
-        step("Open Saved tab", () -> {
-        });
-        step("Long tap on '' list", () -> {
-        });
-        step("Tap 'Edit name/description'", () -> {
-        });
-        step("Type name and description", () -> {
-        });
-        step("Tap OK", () -> {
-        });
-        step("Check that first list has correct name and description", () -> {
-        });
+        SavedTab savedTab = new TabsBottomPanel(driver).tapSaved();
+        savedTab.editList("Saved");
+        savedTab.typeName("NewList");
+        savedTab.clickOkInCreateListPopup();
+        Assertions.assertThat(savedTab.getListsNames().get(0)).isEqualTo("NewList");
     }
 }

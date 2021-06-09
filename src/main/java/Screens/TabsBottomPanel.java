@@ -8,29 +8,29 @@ import static java.lang.String.format;
 import static org.openqa.selenium.By.xpath;
 
 public class TabsBottomPanel extends ScreenBase {
+    private static final String TAB = "//android.widget.FrameLayout[@content-desc='%s']";
+
     public TabsBottomPanel(AndroidDriver<MobileElement> driver) {
         super(driver);
     }
 
-    @Step("Tap Saved")
     public SavedTab tapSaved() {
         tapTab("Saved");
         return new SavedTab(driver);
     }
 
-    @Step("Tap Search")
     public SearchTab tapSearch() {
         tapTab("Search");
         return new SearchTab(driver);
     }
 
-    @Step("Tap More")
     public MoreTab tapMore() {
         tapTab("More");
         return new MoreTab(driver);
     }
 
+    @Step("Tap tab {tab}")
     private void tapTab(String tab) {
-        element(xpath(format("//android.widget.FrameLayout[@content-desc='%s']", tab))).click();
+        element(xpath(format(TAB, tab))).click();
     }
 }

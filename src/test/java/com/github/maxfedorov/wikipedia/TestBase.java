@@ -1,10 +1,9 @@
 package com.github.maxfedorov.wikipedia;
 
+import Screens.CommonSteps;
 import com.github.maxfedorov.wikipedia.helpers.AttachmentHelper;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static io.qameta.allure.Allure.step;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class TestBase {
@@ -37,7 +35,7 @@ public class TestBase {
             e.printStackTrace();
         }
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        step("Skip start message", () -> driver.pressKey(new KeyEvent(AndroidKey.BACK)));
+        new CommonSteps(driver).back();
     }
 
     @AfterEach
