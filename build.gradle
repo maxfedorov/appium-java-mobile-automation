@@ -25,7 +25,8 @@ dependencies {
             "org.aspectj:aspectjweaver:1.9.6",
             "io.appium:java-client:7.3.0",
             "org.junit.jupiter:junit-jupiter-api:$junitVersion",
-            "org.assertj:assertj-core:3.11.1")
+            "org.assertj:assertj-core:3.11.1",
+            "org.aeonbits.owner:owner:1.0.4")
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
@@ -38,4 +39,5 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     useJUnitPlatform()
+    systemProperties(System.getProperties())
 }

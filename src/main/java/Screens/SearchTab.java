@@ -15,6 +15,7 @@ public class SearchTab extends ScreenBase {
     private static final By SEARCH_WIKIPEDIA_BUTTON = MobileBy.AccessibilityId("Search Wikipedia");
     private static final By SEARCH_FIELD = MobileBy.id("org.wikipedia.alpha:id/search_src_text");
     private static final By SEARCH_RESULT = MobileBy.id("org.wikipedia.alpha:id/page_list_item_title");
+    private static final By SEARCH_HEADER = MobileBy.xpath("//*[@resource-id='org.wikipedia.alpha:id/main_toolbar']/*[@text='Search']");
 
     public SearchTab(AndroidDriver<MobileElement> driver) {
         super(driver);
@@ -33,7 +34,7 @@ public class SearchTab extends ScreenBase {
 
     @Step("Check if page is open")
     public boolean isOpen() {
-        return true; //todo
+        return !elements(SEARCH_HEADER).isEmpty();
     }
 
     @Step("Get history items")

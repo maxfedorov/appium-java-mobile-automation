@@ -20,7 +20,7 @@ public class SearchTabTest extends TestBase {
     void searchTest() {
         SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
         searchTab.search("Appium");
-        Assertions.assertThat(searchTab.searchResults().size()).isGreaterThan(0);
+        Assertions.assertThat(searchTab.searchResults()).isNotEmpty();
     }
 
     @Test
@@ -44,6 +44,6 @@ public class SearchTabTest extends TestBase {
         SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
         searchTab.clearHistory();
         searchTab.confirm();
-        Assertions.assertThat(searchTab.getHistoryItems()).hasSize(0);
+        Assertions.assertThat(searchTab.getHistoryItems()).isEmpty();
     }
 }

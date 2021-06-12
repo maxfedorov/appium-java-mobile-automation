@@ -8,7 +8,7 @@ import static java.lang.String.format;
 import static org.openqa.selenium.By.xpath;
 
 public class TabsBottomPanel extends ScreenBase {
-    private static final String TAB = "//android.widget.FrameLayout[@content-desc='%s']";
+    private static final String TAB = "//android.widget.LinearLayout[@content-desc='%1$s'] | //android.widget.FrameLayout[@content-desc='%1$s']";
 
     public TabsBottomPanel(AndroidDriver<MobileElement> driver) {
         super(driver);

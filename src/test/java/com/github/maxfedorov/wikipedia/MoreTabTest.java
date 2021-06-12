@@ -54,6 +54,6 @@ public class MoreTabTest extends TestBase {
         settingsPage.wikipediaLanguages();
         settingsPage.addLanguage();
         settingsPage.clickLanguage("Deutsch");
-        Assertions.assertThat(settingsPage.getLanguagesList()).hasSize(2);
+        Assertions.assertThat(settingsPage.getLanguagesList()).contains("Deutsch");
     }
 }

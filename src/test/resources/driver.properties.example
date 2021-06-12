@@ -1,0 +1,9 @@
+platformName=Android
+deviceName=
+version=
+locale=en
+language=en
+appPackage=org.wikipedia.alpha
+appActivity=org.wikipedia.main.MainActivity
+appPath=src/test/resources/app-alpha-universal-release.apk
+url=http://127.0.0.1:4723/wd/hub

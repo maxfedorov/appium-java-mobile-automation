@@ -11,6 +11,7 @@ import java.util.List;
 public class TopReadPage extends ScreenBase {
 
     private static final By ITEM = MobileBy.id("org.wikipedia.alpha:id/view_list_card_item_title");
+    private static final By TOP_READ_HEADER = MobileBy.xpath("//*[@resource-id='org.wikipedia.alpha:id/action_bar']/*[starts-with(@text, 'Top read on ')]");
 
     public TopReadPage(AndroidDriver<MobileElement> driver) {
         super(driver);
@@ -18,7 +19,7 @@ public class TopReadPage extends ScreenBase {
 
     @Step("Check if page is open")
     public boolean isOpen() {
-        return true; //todo:
+        return !elements(TOP_READ_HEADER).isEmpty();
     }
 
     @Step("Get items list")

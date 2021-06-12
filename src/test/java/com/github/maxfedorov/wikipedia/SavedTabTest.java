@@ -5,8 +5,11 @@ import Screens.TabsBottomPanel;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 @DisplayName("Start screen")
 public class SavedTabTest extends TestBase {
@@ -31,7 +34,8 @@ public class SavedTabTest extends TestBase {
     void deleteListTest() {
         SavedTab savedTab = new TabsBottomPanel(driver).tapSaved();
         savedTab.deleteList("Saved");
-        Assertions.assertThat(savedTab.getLists()).hasSize(0);
+        savedTab.clickOkInCreateListPopup();
+        Assertions.assertThat(savedTab.getLists()).isEmpty();
     }
 
     @Test
@@ -43,6 +47,10 @@ public class SavedTabTest extends TestBase {
         savedTab.editList("Saved");
         savedTab.typeName("NewList");
         savedTab.clickOkInCreateListPopup();
-        Assertions.assertThat(savedTab.getListsNames().get(0)).isEqualTo("NewList");
+        SoftAssertions softAssertions = new SoftAssertions();
+        List<String> list = savedTab.getListsNames();
+        softAssertions.assertThat(list).hasSize(1);
+        softAssertions.assertThat(list.get(0)).isEqualTo("NewList");
+        softAssertions.assertAll();
     }
 }
