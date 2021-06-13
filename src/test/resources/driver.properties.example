@@ -1,9 +1,11 @@
+driver=local
 platformName=Android
-deviceName=
-version=
+deviceName=43dba9d84g74
+version=10.0
 locale=en
 language=en
 appPackage=org.wikipedia.alpha
 appActivity=org.wikipedia.main.MainActivity
 appPath=src/test/resources/app-alpha-universal-release.apk
 url=http://127.0.0.1:4723/wd/hub
+selenoid=https://selenoid.company.com:4444/wd/hub

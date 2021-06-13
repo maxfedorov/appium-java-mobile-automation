@@ -11,6 +11,10 @@ import java.net.URL;
 })
 public interface DriverConfig extends Config {
 
+    @Key("driver")
+    @DefaultValue("local")
+    String driver();
+
     @Key("platformName")
     @DefaultValue("Android")
     String platformName();
@@ -29,6 +33,14 @@ public interface DriverConfig extends Config {
     @DefaultValue("en")
     String language();
 
+    @Key("enableVNC")
+    @DefaultValue("true")
+    boolean enableVNC();
+
+    @Key("enableVideo")
+    @DefaultValue("true")
+    boolean enableVideo();
+
     @Key("appPackage")
     @DefaultValue("org.wikipedia.alpha")
     String appPackage();
@@ -38,10 +50,13 @@ public interface DriverConfig extends Config {
     String appActivity();
 
     @Key("appPath")
-    @DefaultValue("app-alpha-universal-release.apk")
+    @DefaultValue("https://github.com/wikimedia/apps-android-wikipedia/releases/download/latest/app-alpha-universal-release.apk")
     String appPath();
 
     @Key("url")
     @DefaultValue("http://127.0.0.1:4723/wd/hub")
     URL url();
+
+    @Key("selenoid")
+    URL selenoid();
 }

@@ -36,8 +36,22 @@ tasks.withType(JavaCompile) {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-
-tasks.withType(Test) {
+test {
     useJUnitPlatform()
     systemProperties(System.getProperties())
+}
+
+task local(type: Test) {
+    useJUnitPlatform()
+    systemProperty "driver", "local"
+}
+
+task selenoid(type: Test) {
+    useJUnitPlatform()
+    systemProperty "driver", "selenoid"
+}
+
+task browserstack(type: Test) {
+    useJUnitPlatform()
+    systemProperty "driver", "browserstack"
 }
