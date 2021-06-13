@@ -1,6 +1,6 @@
 package com.github.maxfedorov.wikipedia;
 
-import Screens.*;
+import com.github.maxfedorov.wikipedia.Screens.*;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

@@ -1,4 +1,4 @@
-package Screens;
+package com.github.maxfedorov.wikipedia.Screens;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -12,8 +12,6 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static io.appium.java_client.touch.TapOptions.tapOptions;
 
 public class SavedTab extends ScreenBase {
 

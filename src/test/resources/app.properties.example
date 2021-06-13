@@ -3,4 +3,4 @@ locale=en
 language=en
 appPackage=org.wikipedia.alpha
 appActivity=org.wikipedia.main.MainActivity
-appPath=src/test/resources/app-alpha-universal-release.apk
+appPath=https://github.com/wikimedia/apps-android-wikipedia/releases/download/latest/app-alpha-universal-release.apk

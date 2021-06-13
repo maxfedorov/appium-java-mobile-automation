@@ -1,4 +1,4 @@
-package Screens;
+package com.github.maxfedorov.wikipedia.Screens;
 
 import com.github.maxfedorov.wikipedia.helpers.ScrollHelper;
 import io.appium.java_client.MobileBy;

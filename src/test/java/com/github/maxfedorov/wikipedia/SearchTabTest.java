@@ -1,9 +1,9 @@
 package com.github.maxfedorov.wikipedia;
 
-import Screens.CommonSteps;
-import Screens.ExploreTab;
-import Screens.SearchTab;
-import Screens.TabsBottomPanel;
+import com.github.maxfedorov.wikipedia.Screens.CommonSteps;
+import com.github.maxfedorov.wikipedia.Screens.ExploreTab;
+import com.github.maxfedorov.wikipedia.Screens.SearchTab;
+import com.github.maxfedorov.wikipedia.Screens.TabsBottomPanel;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

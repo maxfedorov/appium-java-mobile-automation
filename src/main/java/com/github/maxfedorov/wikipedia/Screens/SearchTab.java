@@ -1,4 +1,4 @@
-package Screens;
+package com.github.maxfedorov.wikipedia.Screens;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;

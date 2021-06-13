@@ -1,7 +1,7 @@
 package com.github.maxfedorov.wikipedia;
 
-import Screens.SavedTab;
-import Screens.TabsBottomPanel;
+import com.github.maxfedorov.wikipedia.Screens.SavedTab;
+import com.github.maxfedorov.wikipedia.Screens.TabsBottomPanel;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

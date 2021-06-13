@@ -1,6 +1,6 @@
 package com.github.maxfedorov.wikipedia;
 
-import Screens.CommonSteps;
+import com.github.maxfedorov.wikipedia.Screens.CommonSteps;
 import com.github.maxfedorov.wikipedia.config.DriverConfig;
 import com.github.maxfedorov.wikipedia.drivers.DriverFactory;
 import com.github.maxfedorov.wikipedia.helpers.AttachmentHelper;
