@@ -1,18 +1,15 @@
 package com.github.maxfedorov.wikipedia;
 
 import com.github.maxfedorov.wikipedia.Screens.CommonSteps;
-import com.github.maxfedorov.wikipedia.config.DriverConfig;
 import com.github.maxfedorov.wikipedia.drivers.DriverFactory;
 import com.github.maxfedorov.wikipedia.helpers.AttachmentHelper;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
     protected AndroidDriver<MobileElement> driver;
-    static DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
     @BeforeEach
     public void startDriver() {
