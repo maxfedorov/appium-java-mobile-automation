@@ -1,6 +1,8 @@
 package com.github.maxfedorov.wikipedia.helpers;
 
+import com.github.maxfedorov.wikipedia.config.DriverConfig;
 import io.qameta.allure.Attachment;
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -9,8 +11,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static io.restassured.RestAssured.given;
+
 public class AttachmentHelper {
     private WebDriver driver;
+    static DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class);
 
     public AttachmentHelper(WebDriver driver) {
         this.driver = driver;
@@ -27,22 +32,35 @@ public class AttachmentHelper {
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public String attachVideo() {
+    public String attachVideo(String sessionId) {
+        String videoUrl = System.getProperty("driver").equals("selenoid") ? getSelenoidVideoUrl(sessionId) : getBrowserVideoUrl(sessionId);
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getSelenoidVideoUrl()
-                + "' type='video/mp4'></video></body></html>";
+                + videoUrl + "' type='video/mp4'></video></body></html>";
     }
 
-    private String getSelenoidVideoUrl() {
+    public String getSessionId() {
+        return ((RemoteWebDriver) driver).getSessionId().toString();
+    }
+
+    private String getSelenoidVideoUrl(String sessionId) {
         try {
-            return new URL("https://selenoid.autotests.cloud/video/" + getSessionId() + ".mp4") + "";
+            return new URL("https://selenoid.autotests.cloud/video/" + sessionId + ".mp4") + "";
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private String getSessionId() {
-        return ((RemoteWebDriver) driver).getSessionId().toString();
+    private String getBrowserVideoUrl(String sessionId) {
+        return given()
+                .auth().basic(driverConfig.browserstackUser(), driverConfig.browserstackKey())
+                .when()
+                .get("https://api-cloud.browserstack.com/app-automate/sessions/" + sessionId + ".json")
+                .then()
+                .statusCode(200)
+                .log().body()
+                .extract()
+                .response()
+                .path("automation_session.video_url");
     }
 }

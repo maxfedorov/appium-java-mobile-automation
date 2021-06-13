@@ -1,0 +1,8 @@
+browserstack.user=
+browserstack.key=
+device=Google Pixel 3
+os_version=9.0
+project=Mobile automation
+build=Android
+name=Wikipedia
+url=http://hub.browserstack.com/wd/hub

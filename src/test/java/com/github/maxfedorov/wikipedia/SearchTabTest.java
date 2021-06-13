@@ -4,6 +4,7 @@ import Screens.CommonSteps;
 import Screens.ExploreTab;
 import Screens.SearchTab;
 import Screens.TabsBottomPanel;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
@@ -20,7 +21,9 @@ public class SearchTabTest extends TestBase {
     void searchTest() {
         SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
         searchTab.search("Appium");
-        Assertions.assertThat(searchTab.searchResults()).isNotEmpty();
+        Allure.step("Verify that search results contains results", () -> {
+            Assertions.assertThat(searchTab.searchResults()).isNotEmpty();
+        });
     }
 
     @Test
@@ -31,7 +34,9 @@ public class SearchTabTest extends TestBase {
         new ExploreTab(driver).card("Top read").clickInnerItemByNumber(1);
         new CommonSteps(driver).back();
         SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
-        Assertions.assertThat(searchTab.getHistoryItems()).hasSize(1);
+        Allure.step("Verify that search tab history contains 1 item", () -> {
+            Assertions.assertThat(searchTab.getHistoryItems()).hasSize(1);
+        });
     }
 
     @Test
@@ -44,6 +49,8 @@ public class SearchTabTest extends TestBase {
         SearchTab searchTab = new TabsBottomPanel(driver).tapSearch();
         searchTab.clearHistory();
         searchTab.confirm();
-        Assertions.assertThat(searchTab.getHistoryItems()).isEmpty();
+        Allure.step("Verify that search tab history is empty", () -> {
+            Assertions.assertThat(searchTab.getHistoryItems()).isEmpty();
+        });
     }
 }

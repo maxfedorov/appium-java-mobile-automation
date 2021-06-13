@@ -23,10 +23,11 @@ public class TestBase {
     @AfterEach
     public void afterEach() {
         AttachmentHelper attachmentHelper = new AttachmentHelper(driver);
+        String sessionId = attachmentHelper.getSessionId();
         attachmentHelper.screenshotAs("After test screenshot");
-        if (!driverConfig.driver().equals("local")) {
-            attachmentHelper.attachVideo();
-        }
         driver.quit();
+        if (!System.getProperty("driver").equals("local")) {
+            attachmentHelper.attachVideo(sessionId);
+        }
     }
 }

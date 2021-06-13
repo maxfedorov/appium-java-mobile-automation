@@ -1,0 +1,5 @@
+deviceName=android-device
+version=10.0
+enableVNC=true
+enableVideo=true
+url=https://selenoid.company.com:4444/wd/hub

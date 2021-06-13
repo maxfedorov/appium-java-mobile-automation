@@ -12,7 +12,7 @@ public class CommonSteps extends ScreenBase {
         super(driver);
     }
 
-    @Step("Skip start message")
+    @Step("Navigate Back")
     public void back() {
         driver.pressKey(new KeyEvent(AndroidKey.BACK));
     }

@@ -1,7 +1,7 @@
 package com.github.maxfedorov.wikipedia;
 
 import Screens.*;
-import io.appium.java_client.MobileElement;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
@@ -10,8 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static io.qameta.allure.Allure.step;
 
 @DisplayName("Start screen")
 public class MoreTabTest extends TestBase {
@@ -23,9 +21,11 @@ public class MoreTabTest extends TestBase {
     void OpenHistoryTest() {
         MoreTab moreTab = new TabsBottomPanel(driver).tapMore();
         moreTab.openHistory();
-        Assertions.assertThat(new SearchTab(driver).isOpen())
-                .as("Search tab should be shown, but it is not")
-                .isTrue();
+        Allure.step("Verify that search tab is shown", () -> {
+            Assertions.assertThat(new SearchTab(driver).isOpen())
+                    .as("Search tab should be shown, but it is not")
+                    .isTrue();
+        });
     }
 
     @Test
@@ -39,8 +39,12 @@ public class MoreTabTest extends TestBase {
         List<String> errors = signUpPage.getErrors();
         String expectedError = "The user name \"user\" is not available. Please choose a different name.";
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(errors).hasSize(1);
-        softAssertions.assertThat(errors.get(0)).isEqualTo(expectedError);
+        Allure.step("Verify that error is shown", () -> {
+            softAssertions.assertThat(errors).hasSize(1);
+        });
+        Allure.step("Verify error text", () -> {
+            softAssertions.assertThat(errors.get(0)).isEqualTo(expectedError);
+        });
         softAssertions.assertAll();
     }
 
@@ -54,6 +58,8 @@ public class MoreTabTest extends TestBase {
         settingsPage.wikipediaLanguages();
         settingsPage.addLanguage();
         settingsPage.clickLanguage("Deutsch");
-        Assertions.assertThat(settingsPage.getLanguagesList()).contains("Deutsch");
+        Allure.step("Verify that language list contains Deutsch", () -> {
+            Assertions.assertThat(settingsPage.getLanguagesList()).contains("Deutsch");
+        });
     }
 }

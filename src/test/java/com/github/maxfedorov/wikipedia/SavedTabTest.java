@@ -2,6 +2,7 @@ package com.github.maxfedorov.wikipedia;
 
 import Screens.SavedTab;
 import Screens.TabsBottomPanel;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
@@ -24,7 +25,9 @@ public class SavedTabTest extends TestBase {
         savedTab.typeName("NewList");
         savedTab.typeDescription("Test description");
         savedTab.clickOkInCreateListPopup();
-        Assertions.assertThat(savedTab.getLists()).hasSize(2);
+        Allure.step("Verify that saved tab contains 2 lists", () -> {
+            Assertions.assertThat(savedTab.getLists()).hasSize(2);
+        });
     }
 
     @Test
@@ -35,7 +38,9 @@ public class SavedTabTest extends TestBase {
         SavedTab savedTab = new TabsBottomPanel(driver).tapSaved();
         savedTab.deleteList("Saved");
         savedTab.clickOkInCreateListPopup();
-        Assertions.assertThat(savedTab.getLists()).isEmpty();
+        Allure.step("Verify that saved tab does not contain lists", () -> {
+            Assertions.assertThat(savedTab.getLists()).isEmpty();
+        });
     }
 
     @Test
@@ -49,8 +54,12 @@ public class SavedTabTest extends TestBase {
         savedTab.clickOkInCreateListPopup();
         SoftAssertions softAssertions = new SoftAssertions();
         List<String> list = savedTab.getListsNames();
-        softAssertions.assertThat(list).hasSize(1);
-        softAssertions.assertThat(list.get(0)).isEqualTo("NewList");
+        Allure.step("Verify that saved tab contains 1 list", () -> {
+            softAssertions.assertThat(list).hasSize(1);
+        });
+        Allure.step("Verify that saved tab list is NewList", () -> {
+            softAssertions.assertThat(list.get(0)).isEqualTo("NewList");
+        });
         softAssertions.assertAll();
     }
 }

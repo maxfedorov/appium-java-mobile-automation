@@ -4,6 +4,7 @@ import Screens.ArticlePage;
 import Screens.CommonSteps;
 import Screens.ExploreTab;
 import Screens.TopReadPage;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
@@ -20,9 +21,11 @@ public class ExploreTabTest extends TestBase {
     @DisplayName("Open 'Today on Wikipedia'")
     void todayOnWikipediaTest() {
         new ExploreTab(driver).clickCategoryLink("Today on Wikipedia");
-        Assertions.assertThat(new ArticlePage(driver).isOpen())
-                .as("Article page should be shown, but it is not")
-                .isTrue();
+        Allure.step("Verify that article is shown", () -> {
+            Assertions.assertThat(new ArticlePage(driver).isOpen())
+                    .as("Article page should be shown, but it is not")
+                    .isTrue();
+        });
     }
 
     @Test
@@ -33,10 +36,15 @@ public class ExploreTabTest extends TestBase {
         new ExploreTab(driver).clickCategoryLink("More top read");
         TopReadPage topReadPage = new TopReadPage(driver);
         SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(topReadPage.isOpen())
-                .as("Article page should be shown, but it is not")
-                .isTrue();
-        softAssertions.assertThat(topReadPage.getItemsList()).isNotEmpty();
+        Allure.step("Verify that article is shown", () -> {
+            softAssertions.assertThat(topReadPage.isOpen())
+                    .as("Article page should be shown, but it is not")
+                    .isTrue();
+        });
+        Allure.step("Verify that there are articles on the page", () -> {
+            softAssertions.assertThat(topReadPage.getItemsList()).isNotEmpty();
+        });
+
         softAssertions.assertAll();
     }
 
@@ -47,9 +55,11 @@ public class ExploreTabTest extends TestBase {
     void hideCardByCardMoreMenuTest() {
         ExploreTab exploreTab = new ExploreTab(driver);
         exploreTab.card("Featured article").hide();
-        Assertions.assertThat(exploreTab.card("Featured article").isVisible())
-                .as("Card Featured article should be invisible, but it is visible")
-                .isFalse();
+        Allure.step("Verify that Featured article card is visible", () -> {
+            Assertions.assertThat(exploreTab.card("Featured article").isVisible())
+                    .as("Card Featured article should be invisible, but it is visible")
+                    .isFalse();
+        });
     }
 
     @Test
@@ -62,6 +72,8 @@ public class ExploreTabTest extends TestBase {
         exploreTab.card("Featured article").customizeTheFeed();
         exploreTab.customizeScreen().hideAll();
         new CommonSteps(driver).back();
-        Assertions.assertThat(exploreTab.getCardsTitles()).isEmpty();
+        Allure.step("Verify that all cards are hidden", () -> {
+            Assertions.assertThat(exploreTab.getCardsTitles()).isEmpty();
+        });
     }
 }
